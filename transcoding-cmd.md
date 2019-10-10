@@ -45,13 +45,3 @@ ffmpeg -i db.wav -c:a pcm_s24le -ac 2 db.ac2.wav
 ffmpeg -i db.wav -af "pan=stereo | FL < FL + 0.5*FC + 0.6*BL + 0.6*SL | FR < FR + 0.5*FC + 0.6*BR + 0.6*SR" db_stereo_DIY.wav
 ffmpeg -i "xxxx" -map 0:v -vcodec libx264 -b:v 15000k -filter_complex "[0:1][0:2][0:3][0:4][0:5][0:6[0:7][0:8] amerge=inputs=8" -acodec libfdk_aac -b:a 384k -strict -2 -y "xxxx"
 ```
-
-MP4Box编译
-```
-./configure --static-mp4box --enable-debug
-```
-
-x265 cmake增加-pg编译和链接选项，为了做gprof profiling，需要使用静态编译，动态编译无法分析动态库的函数耗时
-```
-cmake -DCMAKE_INSTALL_PREFIX=../bin/debug/ -DCMAKE_BUILD_TYPE=Debug -DENABLE_SHARED=OFF -DCMAKE_C_FLAGS=-pg -DCMAKE_CXX_FLAGS=-pg -DCMAKE_EXE_LINKER_FLAGS=-pg -DCMAKE_SHARED_LINKER_FLAGS=-pg -G "Unix Makefiles" ../source/
-```
