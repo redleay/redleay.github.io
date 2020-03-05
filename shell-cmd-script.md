@@ -26,14 +26,17 @@
 | 示例                           | 功能                                          |
 | ------------                   | ------------                                  |
 | sed -i '3s/aaa/fff/' file      | 对file中的第3行，将其中的aaa替换为fff         |
+| sed -i 's/^/fff/' file         | 对file中的所有行，在行首插入fff               |
 | sed -i '/xxx/s/aaa/fff/g' file | 对file找出包含xxx的行，并将其中的aaa替换为fff |
 | sed -i '1s/[#\*]/fff/gp' file  | 对file第1行，将其中的#号或是\*号替换为fff     |
 
 ## sort
-| 示例                 | 功能                                |
-| ------------         | ------------                        |
-| sort -n              | 以数值来排序                        |
-| sort -t "\_" -k 3 -n | 以"\_"为分隔符，以第3列进行数值排序 |
+| 示例                                | 功能                                                                          |
+| ------------                        | ------------                                                                  |
+| sort -n                             | 以数值来排序                                                                  |
+| sort -t \_ -k 2 -n                  | 以"\_"为分隔符，以第2列进行数值排序                                           |
+| sort -t \_ -k2n -k3n -s             | 以"\_"为分隔符，先第2列进行数值排序，后第3列进行稳定的数值排序                |
+| sort -t \_ -k2n | sort -t . -k1n -s | 先以"\_"为分隔符，第2列进行数值排序，后以"."为分隔符，第1列进行稳定的数值排序 |
 
 ## gdb调试
 | 示例                                    | 功能                                                   |
@@ -84,6 +87,14 @@
 | readelf -S exe\|lib | 查询exe或lib是否存在\_debug开头的段，有则携带debug信息 |
 
 ## 语法
-| 示例                                | 功能         |
-| ------------                        | ------------ |
-| for i in {1..100}; do echo $i; done | 循环         |
+| 示例                                    | 功能                           |
+| ------------                            | ------------                   |
+| for i in {1..100}; do echo $i; done     | 循环                           |
+| for i in $(seq $m $n); do echo $i; done | 循环，循环起止由变量$m和$n控制 |
+| for f in `ls . | tr " " "\?"`; do echo $i; done | 循环文件名带空格的目录 |
+
+
+## 其他常用命令
+```
+pip install opencv-python -i http://mirror-sng.oa.com/pypi/web/simple/ --trusted-host mirror-sng.oa.com
+```
