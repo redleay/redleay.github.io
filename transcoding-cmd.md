@@ -21,9 +21,14 @@ file ./2.mp4
 ffmpeg -i input.mp4 -vf scale=w=1920:h=1080:force_original_aspect_ratio=decrease:flags=lanczos -c:v libx265 output.mp4
 ```
 
+添加静态logo
+```
+ffmpeg -i input.mp4 -i logo.png -lavfi "overlay=W-54-w:54" -c:a copy -c:v libx265 -x265-params crf=22 output.logo.mp4
+```
+
 音视频合并
 ```
-MP4Box -add video_file#video -add audio_file#audio -new mp4_file
+MP4Box -add video_file#video -fps 25 -add audio_file#audio -new mp4_file
 ```
 
 提取视频码流
@@ -57,7 +62,7 @@ ffmpeg -i "xxxx" -map 0:v -vcodec libx264 -b:v 15000k -filter_complex "[0:1][0:2
 ffmpeg -i video.mp4 -an -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -c:v copy -shortest -f mp4 video.mute.mp4
 ```
 
-计算PSNR和SSIM
+计算PSNR, SSIM和VMAF
 ```
 ffmpeg -i output.mp4 -i orignal.mxf -filter_complex "psnr=f=output.psnr.log;[0:v][1:v]ssim=f=output.ssim.log" -f null - > output.metric.log 2>&1
 ffmpeg -i output.mp4 -i orignal.mp4 -lavfi libvmaf="model_path=release/model/vmaf_v0.6.1.pkl:log_path=output.vmaf.json:log_fmt=json" -f null - > output.metric.log 2>&1
