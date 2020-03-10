@@ -22,18 +22,20 @@
 | 取消刚刚的合并 | git reset --merge          |                          |
 
 ## 版本
-| 功能                 | 命令                       | 说明                           |
-| ------------         | ------------               | ------------                   |
-| 修改最新commit的信息 | git commit --amend         |                                |
-| 回滚到某个commit     | git reset --hard commitid  | 新增内容全部丢失               |
-| 回滚到某个commit     | git reset --soft commitid  | 新增内容处于已添加到暂存区状态 |
-| 回滚到某个commit     | git reset --mixed commitid | 新增内容处于未添加到暂存区状态 |
-| 查看某个commit修改的文件列表 | git log --name-only |                                |
+| 功能                          | 命令                       | 说明                           |
+| ------------                  | ------------               | ------------                   |
+| 回滚到某个commit              | git reset --hard commitid  | 新增内容全部丢失               |
+| 回滚到某个commit              | git reset --soft commitid  | 新增内容处于已添加到暂存区状态 |
+| 回滚到某个commit              | git reset --mixed commitid | 新增内容处于未添加到暂存区状态 |
+| 查看某个commit修改的文件列表  | git log --name-only        |                                |
+| 修改最新commit的信息          | git commit --amend         |                                |
+| 批量修改commit的作者信息      | git filter-branch --env-filter 'export GIT\_AUTHOR\_EMAIL=new\_author\_email' -- | |
 
 ## 分支
 | 功能           | 命令                                      | 说明                                 |
 | ------------   | ------------                              | ------------                         |
 | 新建分支       | git branch branch                         |                                      |
+| 新建空白分支   | git checkout --orphan branch              |                                      |
 | 切换分支       | git checkout branch                       |                                      |
 | 新建并切换分支 | git checkout -b branch                    |                                      |
 | 拉取远程新分支 | git checkout -b localbranch origin/branch |                                      |
